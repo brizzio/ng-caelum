@@ -1,0 +1,65 @@
+<header class="jumbotron">
+  <h1 class="text-center">cadastro de fotos</h1>
+</header>
+
+<section class="container">
+  
+
+  <div class="row">
+    <form #formCadastro="ngForm" class="col-sm-6" (submit)="cadastrar($event)">
+        <div class="form-group">
+          <label for="">Titulo</label>
+          <input 
+          #titulo="ngModel"
+          required
+          name='titulo'
+          [(ngModel)]='foto.titulo'
+          type="text" class="form-control">
+          <span *ngIf="titulo.invalid" class='form-control alert-danger'>
+            Preenchimento Obrigatorio!!!
+          </span>  
+        </div>
+        
+        <div class="form-group">
+          <label for="">URL</label>
+          <input 
+          name='url'
+          #url='ngModel'
+          required
+          [(ngModel)] = 'foto.url'
+          type="text" class="form-control">
+          <span *ngIf="url.invalid" class='form-control alert-danger'>
+            Preenchimento Obrigatorio!!!
+          </span>  
+
+        </div>
+
+        <div class="form-group">
+          <label for="">Descrição</label>
+          <input 
+          name='descricao'
+          #descricao='ngModel'
+          required
+          [(ngModel)]=foto.descricao
+          type="textArea" class="form-control">
+          <span *ngIf="descricao.invalid" class='form-control alert-danger'>
+            Preenchimento Obrigatorio!!!
+          </span> 
+
+        </div>
+
+        <a [routerLink]="['']" class="btn btn-default">Voltar</a>
+
+        <button type="submit" [disabled]="formCadastro.invalid" class="btn btn-primary">Cadastrar</button> 
+    
+    </form>    
+       
+        <div class="col-sm-4">
+          <!-- preview here -->
+          <foto titulo={{foto.titulo}} url={{foto.url}}></foto>
+        </div>
+
+
+      
+  </div>
+</section>

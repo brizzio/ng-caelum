@@ -1,0 +1,20 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="jumbotron">
+        <h1 class="text-center">{{title}}</h1>
+</div>
+
+<div class="row">
+  <div class="input-group">
+    <span class="input-group-btn">
+       <a [routerLink]="['/cadastro']" class='btn btn-primary'>Nova Foto</a>
+    </span>
+       <input (input)=0 #inputBusca type="search" placeholder="Digite o titulo de uma foto" class="form-control">
+  </div>
+</div>  
+
+<div class="row">
+  
+  <painel class="col-md-2" *ngFor="let foto of fotos | filtroPorTitulo:inputBusca.value" titulo="{{foto.titulo|uppercase}}">  
+  <foto  url="{{foto.url}}" ></foto>
+  </painel>
+</div>

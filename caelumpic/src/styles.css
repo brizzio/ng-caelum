@@ -1,0 +1,17 @@
+/* You can add global styles to this file, and also import other style files */
+.row{
+    padding:20px;
+    margin-bottom: 25px;
+}
+
+html{
+    padding:20px;
+}
+
+.panel{
+    width:100%
+}
+
+.area{
+    height: 200px
+}
