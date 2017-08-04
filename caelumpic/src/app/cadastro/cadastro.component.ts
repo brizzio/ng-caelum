@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FotoComponent } from '../foto/foto.component'
 import { Http, Headers } from '@angular/http'
+//import {FormGroup, FormBuilder, Validators} from '@angular/forms'
 
 @Component({
   selector: 'app-cadastro',
@@ -11,10 +12,17 @@ export class CadastroComponent implements OnInit {
 
   foto:FotoComponent = new FotoComponent()
   http:Http
+  //formCadastro:FormGroup
 
 
   constructor(cadastroApi:Http) {
     this.http = cadastroApi
+
+   // this.formCadastro = formBuilder.group({
+   //   titulo:['',Validators.required],
+   //   url:['',Validators.required],
+   //   descricao:[]
+   // })
    }
 
   cadastrar(submit:Event){
