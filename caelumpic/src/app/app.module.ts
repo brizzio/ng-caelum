@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms'
 
 import { AppComponent } from './app.component'
 import { FotoModule } from './foto/foto.module'
+import { FotoService } from './foto/foto.service'
 import { PainelModule } from './painel/painel.module';
 import { ListagemComponent } from './listagem/listagem.component';
 import { CadastroComponent } from './cadastro/cadastro.component'
@@ -33,7 +34,7 @@ import {routing} from './app.routes'
 
   ]
   ,
-  providers: [],
+  providers: [FotoService],
   bootstrap: [AppComponent]
 })
 

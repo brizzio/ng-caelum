@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FotoComponent } from '../foto/foto.component'
-import { Http, Headers } from '@angular/http'
+import { FotoService} from '../foto/foto.service'
+import{ActivatedRoute, Router} from '@angular/router'
 //import {FormGroup, FormBuilder, Validators} from '@angular/forms'
 
 @Component({
@@ -11,12 +12,32 @@ import { Http, Headers } from '@angular/http'
 export class CadastroComponent implements OnInit {
 
   foto:FotoComponent = new FotoComponent()
-  http:Http
+  servico:FotoService
   //formCadastro:FormGroup
 
+  roteamento:Router
 
-  constructor(cadastroApi:Http) {
-    this.http = cadastroApi
+
+  constructor(cadastroApi:FotoService, rota:ActivatedRoute, router:Router) {
+    this.servico = cadastroApi
+    this.roteamento = router
+
+    rota.params.subscribe(
+      (parametros)=>{
+        if(parametros.id){
+
+            console.log(parametros.id)
+            this.servico.obterFoto(parametros.id)
+                .subscribe(
+                  (foto)=>{
+                    this.foto = foto
+                  }
+                )
+          
+          
+          }
+        }
+    )
 
    // this.formCadastro = formBuilder.group({
    //   titulo:['',Validators.required],
@@ -29,35 +50,37 @@ export class CadastroComponent implements OnInit {
 
     submit.preventDefault()
     
+    if (this.foto._id){
+
+        this.servico.editar(this.foto).subscribe(
+          ()=>{
+            this.roteamento.navigate([''])
+          }
+        )
     
-    let cabecalho = new Headers()
-    cabecalho.append('Content-Type', 'application/json')
+      }else{
 
-    this.http.post(
-      'http://localhost:3000/v1/fotos/'
-    ,
-    JSON.stringify(this.foto)
-    ,
-    {headers:cabecalho}
+        this.servico.salvar(this.foto)
+        .subscribe(
 
-    ).subscribe(
+          ()=> {
+            console.log(this.foto)
+            this.foto = new FotoComponent()
+          }
+          ,
 
-      ()=> {
-        console.log(this.foto)
-        this.foto = new FotoComponent()
-      }
-      ,
+          erro => console.log(erro)
+          
 
-      erro => console.log(erro)
-      
-
-    )
+        )
 
 
-    console.log('CADASTROU!!');
-    
+        console.log('CADASTROU!!');
+        
+    }
   }
 
+  
   ngOnInit() { }
 
 }

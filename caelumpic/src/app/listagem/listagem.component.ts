@@ -1,6 +1,8 @@
+import { FotoComponent } from './../foto/foto.component';
 import { Component, OnInit } from '@angular/core'
 import {Http} from '@angular/http'
-import { FotoComponent} from '../foto/foto.component'
+
+import { FotoService } from '../foto/foto.service'
 
 
 @Component({
@@ -11,12 +13,13 @@ import { FotoComponent} from '../foto/foto.component'
 export class ListagemComponent {
 
    title = 'SUPER COOL PHOTOS';
-  fotos: FotoComponent[] = []
+   fotos: FotoComponent[] = []
+   servico:FotoService
 
-  constructor(route:Http){
-
-    route.get('http://localhost:3000/v1/fotos')
-    .map(response => response.json())
+  constructor(servico:FotoService){
+    this.servico = servico
+   
+    servico.listar()
 
     .subscribe(
       
@@ -24,11 +27,26 @@ export class ListagemComponent {
         
       ,
       erro => console.log('falha na leitura dos dados')
-        
-
-
+    
     )
+
 
   }
 
+    remover(foto:FotoComponent){
+      console.log(foto._id)
+      console.log('foto removida!!!!')
+
+      this.servico.deletar(foto._id)
+                  .subscribe(
+                    ()=>{
+                       this.fotos = this.fotos.filter(
+                            fotoLista => fotoLista._id != foto._id
+                              
+                       )
+                    }
+                  )
+      
+    }
+    
 }

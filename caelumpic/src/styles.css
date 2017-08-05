@@ -17,3 +17,8 @@ img{
     object-fit: contain;
 }
 
+.btnremove{
+    
+    position: relative;
+    margin-top: 3px;
+}
